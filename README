@@ -1,0 +1,39 @@
+This is django app with configured crud_object functionality, users registration and deploy configurations
+This app is based on book "Django for professionals 2019"
+
+Dockerfile contains all package names to run app locally or in docker container.
+
+Store all sensitive information from settings.py in environmental variables.
+
+
+# HEROKU DEPLOY SHORT WORKFLOW:
+
+# create and configure heroku.yml file aka docker-compose-prod.yml in local production testing.
+# heroku users heroku.yml to build container the same as docker use docker-compose-prod.yml to build local container.
+
+# heroku create --region eu
+
+# add environment variables
+
+# heroku stack:set container -a serene-castle-61541
+
+# heroku addons:create heroku-postgresql:hobby-dev -a serene-castle-61541
+
+# heroku git:remote -a serene-castle-61541
+
+# git push heroku master
+
+#somehow the next commands doesnt work from laptop
+# so go to heroku account and run bash remotly
+
+# heroku run python manage.py migrate
+
+# heroku run python manage.py createsuperuser
+
+# add the name of your heroku-app to ALLOWED_HOSTS
+
+# after you made any change in your local source code:
+# git status
+# git add .
+# git commit -m "some changes here"
+# sudo git push heroku master

@@ -1,0 +1,29 @@
+{% extends '_base.html' %}
+
+{% block title %}{{ crudobject.title }}{% endblock title %}
+
+{% block content %}
+  <div class="book-detail">
+    {% if crudobject.crudcover %}
+    <img class="bookcover" src="{{ crudobject.crudcover.url}}" alt="{{ crudobject.title }}">
+    {% endif %}
+    <h2><a href=""> {{ crudobject.title }}</a></h2>
+    <p>Author: {{ crudobject.author }}</p>
+    <p>Price: {{ crudobject.price }}</p>
+  </div>
+
+  {% if crudobject.comments %}
+    <div>
+        <h3>Comments</h3>
+        <ul>
+            {% for comment in crudobject.comments.all %}
+            <li>{{ comment.text }} ({{ comment.author }})</li>
+        {% endfor %}
+        </ul>
+    </div>
+  {% else %}
+    <p>No comments yet.<p>
+  {% endif %}
+
+
+{% endblock content %}>
