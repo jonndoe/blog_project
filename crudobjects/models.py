@@ -6,6 +6,13 @@ import uuid
 from django.utils import timezone
 
 
+
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedManager,
+                     self).get_queryset().filter(status='published')
+
+
 # Create your models here.
 class Crudobject(models.Model):
     STATUS_CHOICES = (
@@ -28,6 +35,10 @@ class Crudobject(models.Model):
                               choices=STATUS_CHOICES,
                               default='draft')
     crudcover = models.ImageField(upload_to='crudcovers/', blank=True) # base img of CRUD object
+
+    objects = models.Manager()
+    published = PublishedManager()
+
 
     class Meta:
         ordering = ('-publish',)

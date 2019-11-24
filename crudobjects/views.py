@@ -16,6 +16,11 @@ class CrudobjectListView(LoginRequiredMixin, ListView):
     template_name = 'crudobjects/crudobject_list.html'
     login_url = 'account_login'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['crudobject_list'] = Crudobject.published.all()
+        return context
+
 
 class CrudobjectDetailView(LoginRequiredMixin,
                            PermissionRequiredMixin,
@@ -43,6 +48,10 @@ class CreateCrudobjectView(CreateView):
     form_class = CrudobjectForm
     template_name = 'crudobjects/crudobject_create.html'
     success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 class CrudCommentCreateView(CreateView):
