@@ -80,7 +80,8 @@ MIDDLEWARE = [
 
 # django caching options setup
 CACHE_MIDDLEWARE_ALIAS = 'default'
-CACHE_MIDDLEWARE_SECONDS = 604800 #1WEEK
+#CACHE_MIDDLEWARE_SECONDS = 604800 #1WEEK
+CACHE_MIDDLEWARE_SECONDS = 1 #for development we put 1 seconds
 CACHE_MIDDLEWARE_KEY_PREFIX = ''
 
 ROOT_URLCONF = 'crud_project.urls'

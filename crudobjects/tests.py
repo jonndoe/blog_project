@@ -47,6 +47,13 @@ class CrudobjectTests(TestCase):
         self.assertContains(response, 'An excellent review')
         self.assertTemplateUsed(response, 'crudobjects/crudobject_detail.html')
 
+    def test_crudobject_create_view(self):
+        response = self.client.get(self.crudobject.get_absolute_url())
+        no_response = self.client.get('/crudobject/12345/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(no_response.status_code, 404)
+
+
 
 
 # Create your tests here.

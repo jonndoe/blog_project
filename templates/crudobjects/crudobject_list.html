@@ -5,7 +5,7 @@
 {% block title %}Books{% endblock title %}
 {% block content %}
 
-
+<a class="p-2 text-dark" href="{% url 'add_crudobject' %}"><button class="btn btn-success">Add crudobject</button></a>
 {% for crudobject in crudobject_list %}
 <div>
     <h2><a href="{{ crudobject.get_absolute_url }}">{{ crudobject.title }}</a></h2>
