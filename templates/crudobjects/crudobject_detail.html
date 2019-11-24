@@ -9,7 +9,8 @@
     {% endif %}
     <h2><a href=""> {{ crudobject.title }}</a></h2>
     <p>Author: {{ crudobject.author }}</p>
-    <p>Price: {{ crudobject.price }}</p>
+    <p>{{ crudobject.body }}
+    </p>
   </div>
 
   {% if crudobject.comments %}

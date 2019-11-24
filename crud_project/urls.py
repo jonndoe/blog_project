@@ -21,7 +21,7 @@ from django.urls import path, include
 
 urlpatterns = [
     # django admin
-    path('any-admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
 
     # user management
     path('accounts/', include('allauth.urls')),

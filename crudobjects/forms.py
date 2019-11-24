@@ -7,7 +7,7 @@ class CrudobjectForm(forms.ModelForm):
 
     class Meta:
         model = Crudobject
-        fields = ['title', 'crudcover', 'price', 'author']
+        fields = ['title', 'crudcover', 'author', 'body', 'status',]
 
 
 class CrudCommentForm(forms.ModelForm):
