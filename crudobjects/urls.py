@@ -5,6 +5,8 @@ from .views import ( CrudobjectListView,
                      SearchResultsView,
                      CreateCrudobjectView,
                      CrudCommentCreateView,)
+from . import views
+
 
 
 urlpatterns = [

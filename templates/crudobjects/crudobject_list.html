@@ -1,4 +1,4 @@
-<!-- templates/books/book_list.html -->
+
 {% extends '_base.html' %}
 
 
@@ -9,6 +9,11 @@
 {% for crudobject in crudobject_list %}
 <div>
     <h2><a href="{{ crudobject.get_absolute_url }}">{{ crudobject.title }}</a></h2>
+    {{ crudobject.publish }} by {{ crudobject.author }}
+    {{ crudobject.body|truncatewords:30|linebreaks }}
 </div>
 {% endfor %}
+
+{% include "crudobjects/pagination.html" with page=crudobject_list %}
+
 {% endblock content %}
