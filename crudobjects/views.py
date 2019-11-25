@@ -139,14 +139,34 @@ class CreateCrudobjectView(CreateView):
     form_class = CrudobjectForm
     template_name = 'crudobjects/crudobject_create.html'
     success_url = reverse_lazy('home')
+    obj = None
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateCrudobjectView, self).get_context_data(**kwargs)
+        context['form'] = self.get_form()
+        #context['form'] = CrudCommentForm(initial={'author': self.request.user})
+        #context['form'] = CrudCommentForm(initial={'crudobject': self.object})
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+        obj = form.save(commit=False)
+        obj.author = self.request.user
+        obj.save()
+        return super(CreateCrudobjectView, self).form_valid(form)
 
 
+
+'''
 class CrudCommentCreateView(CreateView):
     model = Comment
     form_class = CrudCommentForm
     template_name = 'crudobjects/crudcomment_create.html'
     success_url = reverse_lazy('home')
+'''

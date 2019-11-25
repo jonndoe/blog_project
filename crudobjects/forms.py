@@ -7,7 +7,10 @@ class CrudobjectForm(forms.ModelForm):
 
     class Meta:
         model = Crudobject
-        fields = ['title', 'crudcover', 'author', 'body', 'status',]
+        fields = ['title', 'crudcover', 'body', 'status',]
+        widgets = {
+            'author': forms.HiddenInput(),
+        }
 
 
 class CrudCommentForm(forms.ModelForm):
