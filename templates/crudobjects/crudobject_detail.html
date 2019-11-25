@@ -12,7 +12,15 @@
     <p>{{ crudobject.body|linebreaks }}
     </p>
   </div>
+  <br>
+  <br>
 
+  <form method="POST" class="card">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-success">Send</button>
+  </form>
+        </div>
   {% if crudobject.comments %}
     <div>
         <h3>Comments</h3>

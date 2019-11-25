@@ -4,7 +4,9 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from django.views.generic import ListView, DetailView, CreateView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+
+from django.views.generic.edit import FormMixin
 
 from .models import Crudobject, Comment
 from .forms import CrudobjectForm, CrudCommentForm
@@ -77,7 +79,7 @@ class CrudobjectListView(ListView):
 
 
 
-
+'''
 class CrudobjectDetailView(LoginRequiredMixin,
                            PermissionRequiredMixin,
                            DetailView):
@@ -86,6 +88,39 @@ class CrudobjectDetailView(LoginRequiredMixin,
     template_name = 'crudobjects/crudobject_detail.html'
     login_url = 'account_login'
     permission_required = 'crudobjects.special_status'
+'''
+class CrudobjectDetailView(FormMixin, DetailView):
+    template_name = 'crudobjects/crudobject_detail.html'
+    model = Crudobject
+    form_class = CrudCommentForm
+    obj = None
+
+    def get_success_url(self):
+        return reverse('crudobject_detail', kwargs={'pk': self.object.id})
+
+    def get_context_data(self, **kwargs):
+        context = super(CrudobjectDetailView, self).get_context_data(**kwargs)
+        context['form'] = self.get_form()
+        #context['form'] = CrudCommentForm(initial={'author': self.request.user})
+        #context['form'] = CrudCommentForm(initial={'crudobject': self.object})
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.author = self.request.user
+        obj.crudobject = self.object
+        obj.save()
+        return super(CrudobjectDetailView, self).form_valid(form)
+
+
 
 
 class SearchResultsView(ListView):
