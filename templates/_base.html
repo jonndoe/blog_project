@@ -35,6 +35,17 @@ shrink-to-fit=no">
     <h4>Latest posts</h4>
 {% show_latest_crudobjects 3 %}
 </div>
+
+<h3>Most commented posts</h3>
+{% get_most_commented_crudobjects as most_commented_crudobjects %}
+    <ul>
+        {% for post in most_commented_crudobjects %}
+            <li>
+                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
 <div class="container">
 {% block content %}
 {% endblock content %}
