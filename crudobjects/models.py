@@ -5,12 +5,29 @@ import uuid
 
 from django.utils import timezone
 
-
+from taggit.managers import TaggableManager
+from django.utils.translation import ugettext_lazy as _
+from taggit.models import GenericUUIDTaggedItemBase, TaggedItemBase
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super(PublishedManager,
                      self).get_queryset().filter(status='published')
+
+
+
+class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemBase):
+    # If you only inherit GenericUUIDTaggedItemBase, you need to define
+    # a tag field. e.g.
+    # tag = models.ForeignKey(Tag, related_name="uuid_tagged_items", on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("Tag")
+        verbose_name_plural = _("Tags")
+
+
+
+
 
 
 # Create your models here.
@@ -38,6 +55,7 @@ class Crudobject(models.Model):
 
     objects = models.Manager()
     published = PublishedManager()
+    tags = TaggableManager(through=UUIDTaggedItem)
 
 
     class Meta:

@@ -11,6 +11,8 @@ from django.views.generic.edit import FormMixin
 from .models import Crudobject, Comment
 from .forms import CrudobjectForm, CrudCommentForm
 
+from taggit.models import Tag
+
 from django.core.paginator import ( Paginator,
                                     EmptyPage,
                                     PageNotAnInteger,
@@ -73,7 +75,7 @@ class CrudobjectListView(ListView):
     model = Crudobject
     queryset = Crudobject.published.all()
     context_object_name = 'crudobject_list'
-    paginate_by = 3
+    paginate_by = 40
     template_name = 'crudobjects/crudobject_list.html'
     login_url = 'account_login'
 

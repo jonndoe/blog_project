@@ -17,7 +17,7 @@ RUN pip install django-crispy-forms==1.7.1
 RUN pip install django-allauth==0.38.0
 RUN pip install pillow==5.4.1 django-debug-toolbar==1.11
 RUN pip install whitenoise==4.1.2 gunicorn==19.9.0
-RUN pip install dj-database-url==0.5.0
+RUN pip install dj-database-url==0.5.0 django-taggit
 
 # Copy project from local folder where Dockerfile is (.) to
 # /code/ directory inside container

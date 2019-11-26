@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'debug_toolbar',
+    'taggit',
 
     #local
     'users.apps.UsersConfig',
@@ -65,7 +66,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.cache.UpdateCacheMiddleware', #caching
+    #'django.middleware.cache.UpdateCacheMiddleware', #caching
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',   # hangling static files in production
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -75,14 +76,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',  # debug-toolbar
-    'django.middleware.cache.FetchFromCacheMiddleware', #caching
+    #'django.middleware.cache.FetchFromCacheMiddleware', #caching
 ]
 
 # django caching options setup
-CACHE_MIDDLEWARE_ALIAS = 'default'
+#CACHE_MIDDLEWARE_ALIAS = 'default'
 #CACHE_MIDDLEWARE_SECONDS = 604800 #1WEEK
-CACHE_MIDDLEWARE_SECONDS = 1 #for development we put 1 seconds
-CACHE_MIDDLEWARE_KEY_PREFIX = ''
+#CACHE_MIDDLEWARE_SECONDS = 1 #for development we put 1 seconds
+#CACHE_MIDDLEWARE_KEY_PREFIX = ''
 
 ROOT_URLCONF = 'crud_project.urls'
 

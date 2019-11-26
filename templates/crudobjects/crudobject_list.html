@@ -10,6 +10,7 @@
 <div>
     <h2><a href="{{ crudobject.get_absolute_url }}">{{ crudobject.title }}</a></h2>
     {{ crudobject.publish }} by {{ crudobject.author }}
+    <p class="tags">Tags: {{ crudobject.tags.all|join:", " }}</p>
     {{ crudobject.body|truncatewords:30|linebreaks }}
 </div>
 {% endfor %}
