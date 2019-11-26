@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic', # handling static files in production
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.postgres', # for postgres search lookup
 
     # third-party
     'crispy_forms',
@@ -58,6 +59,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'debug_toolbar',
     'taggit',
+
 
     #local
     'users.apps.UsersConfig',

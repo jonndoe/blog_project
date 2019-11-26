@@ -23,3 +23,7 @@ class CrudCommentForm(forms.ModelForm):
             'author': forms.HiddenInput(),
             'crudobject': forms.HiddenInput(),
         }
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField()

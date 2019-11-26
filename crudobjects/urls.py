@@ -15,6 +15,7 @@ urlpatterns = [
     path('<uuid:pk>', CrudobjectDetailView.as_view(), name='crudobject_detail'),
     path('search/', SearchResultsView.as_view(), name='search_results'),
     path('crudobject_create/', CreateCrudobjectView.as_view(), name='add_crudobject'),
-    path('tagged/<slug>', TaggedCrudobjectListView.as_view(), name='tagged_crudobjects')
+    path('tagged/<slug>', TaggedCrudobjectListView.as_view(), name='tagged_crudobjects'),
+    path('search_fulltext/', views.crudobject_search, name='crudobject_search_fulltext'),
     #path('crud_comment_create/', CrudCommentCreateView.as_view(), name='add_crudcomment'),
 ]

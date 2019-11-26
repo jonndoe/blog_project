@@ -9,7 +9,11 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import FormMixin
 
 from .models import Crudobject, Comment
-from .forms import CrudobjectForm, CrudCommentForm
+from .forms import CrudobjectForm, CrudCommentForm, SearchForm
+
+from django.contrib.postgres.search import SearchVector
+from django.contrib.postgres.search import TrigramSimilarity
+
 
 from taggit.models import Tag
 
@@ -176,6 +180,44 @@ class CreateCrudobjectView(CreateView):
         return super(CreateCrudobjectView, self).form_valid(form)
 
 
+# This is fulltext search by vector
+def crudobject_search(request):
+    form = SearchForm()
+    query = None
+    results = []
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Crudobject.objects.annotate(
+                search=SearchVector('title', 'body'),
+            ).filter(search=query)
+    return render(request,
+                  'crudobjects/search_fulltext.html',
+                  {'form': form,
+                   'query': query,
+                   'results': results})
+
+
+'''
+# This is fulltext search by trigram similarity
+def crudobject_search(request):
+    form = SearchForm()
+    query = None
+    results = []
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Crudobject.objects.annotate(
+                similarity=TrigramSimilarity('title', query),
+            ).filter(similarity__gt=0.3).order_by('-similarity')
+    return render(request,
+                  'crudobjects/search_fulltext.html',
+                  {'form': form,
+                   'query': query,
+                   'results': results})
+'''
 
 '''
 class CrudCommentCreateView(CreateView):
