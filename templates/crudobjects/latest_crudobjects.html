@@ -1,0 +1,7 @@
+<ul>
+{% for crudobject in latest_crudobjects %}
+    <li>
+        <a href="{{ crudobject.get_absolute_url }}">{{ crudobject.title }}</a>
+    </li>
+{% endfor %}
+</ul>
