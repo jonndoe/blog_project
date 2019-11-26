@@ -5,12 +5,26 @@
 {% block title %}Crudobjects{% endblock title %}
 {% block content %}
 
+
+{% if tag %}
+  <h2>Crudobjectsf tagged as {{ tag }}</h2>
+{% endif %}
+
+
 <a class="p-2 text-dark" href="{% url 'add_crudobject' %}"><button class="btn btn-success">Add crudobject</button></a>
 {% for crudobject in crudobject_list %}
 <div>
     <h2><a href="{{ crudobject.get_absolute_url }}">{{ crudobject.title }}</a></h2>
     {{ crudobject.publish }} by {{ crudobject.author }}
-    <p class="tags">Tags: {{ crudobject.tags.all|join:", " }}</p>
+    <p class="tags">
+    Tags:
+    {% for tag in crudobject.tags.all %}
+        <a href="{% url 'tagged_crudobjects' tag.slug %}">
+            {{ tag.name }}
+        </a>
+        {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+</p>
     {{ crudobject.body|truncatewords:30|linebreaks }}
 </div>
 {% endfor %}

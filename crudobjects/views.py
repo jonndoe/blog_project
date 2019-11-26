@@ -80,6 +80,18 @@ class CrudobjectListView(ListView):
     login_url = 'account_login'
 
 
+# the listing of tagged crudobjects.
+class TaggedCrudobjectListView(ListView):
+    template_name = 'crudobjects/crudobject_list.html'
+
+    def get_queryset(self):
+        return Crudobject.objects.filter(tags__slug=self.kwargs.get("slug")).all()
+
+    def get_context_data(self, **kwargs):
+        context = super(TaggedCrudobjectListView, self).get_context_data(**kwargs)
+        context["tag"] = self.kwargs.get("slug")
+        return context
+
 
 '''
 class CrudobjectDetailView(LoginRequiredMixin,
