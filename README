@@ -1,4 +1,4 @@
-This is django app with configured crud_object functionality, users registration and deploy configurations
+This is simple blog app based on configured crud_project functionality, users registration and deploy configurations
 This app is based on book "Django for professionals 2019"
 
 Dockerfile contains all package names to run app locally or in docker container.
